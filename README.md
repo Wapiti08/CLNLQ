@@ -2,6 +2,11 @@
 NLQ into SQL translation using computational linguistics
 
 
+## Features
+
+- async processing
+
+
 ## Components:
     - NLQ Input Interface (not included)
 
@@ -14,6 +19,39 @@ NLQ into SQL translation using computational linguistics
     - SQL template Generator
 
     - SQL Execution & Result (not included)
+
+## NLQ MetaTable
+- columns:
+    Words, 
+    Syntactic Role -- POS, 
+    Category --- Value, Table, Attribute, Relationship, 
+    Synonyms (同义词)
+
+## RDB elements MetaTable
+- columns:
+    Words, 
+    SyntacticRole - noun, verb, noun (POS), 
+    Category, 
+    DataType --- shape
+    PK/FK --- primary or foreign key, 
+    Enclosing Source, 
+    Synonyms
+
+
+## Running (tested under Win10)
+
+```
+# build virtual environment 
+virtualenv env
+.\env\Scripts\activate
+# download libraries
+pip3 install -r requirements.txt
+
+# download necessary language for wordnet
+python(v3) -m spacy download en_core_web_sm
+python(v3) -m nltk.downloader wordnet
+python(v3) -m nltk.downloader omw
+```
 
 
 ## Extension
