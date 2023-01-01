@@ -3,8 +3,7 @@ NLQ into SQL translation using computational linguistics
 
 
 ## Features
-
-- async processing
+- async processing for parsing tokens
 
 
 ## Components:
@@ -75,3 +74,9 @@ python(v3) -m nltk.downloader omw
             - identify conditional or symbolic words and map them with their relative representation from the language ontology
 
         - compare with RDB MetaTables' contents: keywords in the NLQ sentence
+
+## Reference:
+
+    - tags:
+        - *https://github.com/explosion/spaCy/blob/master/spacy/glossary.py*
+        - *https://web.archive.org/web/20190206204307/https://www.clips.uantwerpen.be/pages/mbsp-tags*

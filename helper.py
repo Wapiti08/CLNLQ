@@ -1,6 +1,6 @@
 from pathlib import Path
 
-def file_path_check(self, file_path):
+def file_path_check(file_path):
     ''' check whether file and path exists
     
 
@@ -11,6 +11,6 @@ def file_path_check(self, file_path):
     else:
         return True 
 
-def path_create(self, path):
+def path_create(path):
     
     Path.mkdir(path, exist_ok=True, parents=True)

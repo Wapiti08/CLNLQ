@@ -110,23 +110,37 @@ class PosRecognizer:
         return list(filter(lambda a: a not in com_tokens, att_list))
 
 
-    def token_match_label(self, doc: spacy.tokens.doc.Doc):
-        ''' match token to Table, Value, Attribute and Relationships
-        according to linguistic categories and semantic roles
-        Table: Common Noun
-        Value: Proper Noun, Literal Value
-        Conditional Values：Comparative Experssion, Comparative Operation
-        Relationship: Verb
-        Attribute: Common Noun, Adjective, Adv
+    def token_type(self, doc: spacy.tokens.doc.Doc):
+        ''' define token types based on rules (from tag)
+        type (POS Tags)                              tag                           SQL
+        noun_phrase(NN)                             ---- noun_phrase              ----  table, attribute
+        string()/number(CD)                         ---- literal_value            ----  value
+        proper_noun(PROPN)                          ---- proper_noun              ----  value
+        literal_value                               ---- literal value            ----  value
+        verb(verb)                                  ---- verb                     ----  relationship  
+        adverb(adv)                                 ---- adverb                   ----  attribute   
+        adjective(adj)                              ---- adjective                ----  attribute
+        preposition(IN)                             ---- preposition 
+        wh_question wh_question reference
+        conjunction_phrase(CONJ)                    ---- disjunction_phrase       ---- condition
+        comparative_expression(JJR/RBR/KOKOM/cm)    ---- comparative_experssion   ---- condition
+        operational_expression()                    ---- operational_expression   ---- condition
+
         '''
+        # create a list to save rule-based assumptions
+        token_type_dict = {}
+
         for token in tqdm(doc, desc="traversing the tokens"):
-            if token.pos_ == "NOUN"
+            if token.pos_ == "CD":
+                Table, Attribute
+            else:
+                
             print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
             token.shape_, token.is_alpha, token.is_stop)
     
-
+    def 
     
-    def escape_words(self, token_list:list):
+    def escape_words(self, token_list:list) -> list:
         filter_tokens = []
         
         # Method 1
