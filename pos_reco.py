@@ -62,13 +62,13 @@ class PosRecognizer:
         return doc._.outcome_spellCheck
 
     def tokenize_words(self, input_string):
+        ''' tokenize string to tokens with preprocessing
+
+        '''
         # check spelling, default English
         # not necessary for Chinese
         corr_string = self.spell_check(input_string)
-        doc = self.nlp(corr_string)
-        # tokenize to NLQ semantic roles
-        for token in tqdm(doc, desc="traversing the tokens"):
-
+        return self.nlp(corr_string)
 
     def store_token_ids(self, token_ids:dict):
 
@@ -101,16 +101,16 @@ class PosRecognizer:
 
             
 
-    def max_length(self,):
+    def max_length(self, att_list:list, val_list:list) -> list:
         ''' remove tokens from attributes list if existed in values list
         
         '''
-        
+        # return the intersection of two lists
+        com_tokens = list(set(att_list) & set(val_list))
+        return list(filter(lambda a: a not in com_tokens, att_list))
 
 
-
-
-    def token_label(self, ):
+    def token_match_label(self, doc: spacy.tokens.doc.Doc):
         ''' match token to Table, Value, Attribute and Relationships
         according to linguistic categories and semantic roles
         Table: Common Noun
@@ -119,6 +119,10 @@ class PosRecognizer:
         Relationship: Verb
         Attribute: Common Noun, Adjective, Adv
         '''
+        for token in tqdm(doc, desc="traversing the tokens"):
+            if token.pos_ == "NOUN"
+            print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
+            token.shape_, token.is_alpha, token.is_stop)
     
 
     

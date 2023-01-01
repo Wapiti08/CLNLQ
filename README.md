@@ -22,20 +22,20 @@ NLQ into SQL translation using computational linguistics
 
 ## NLQ MetaTable
 - columns:
-    Words, 
-    Syntactic Role -- POS, 
-    Category --- Value, Table, Attribute, Relationship, 
-    Synonyms (同义词)
+    - Words, 
+    - Syntactic Role -- POS, 
+    - Category --- Value, Table, Attribute, Relationship, 
+    - Synonyms (同义词)
 
 ## RDB elements MetaTable
 - columns:
-    Words, 
-    SyntacticRole - noun, verb, noun (POS), 
-    Category, 
-    DataType --- shape
-    PK/FK --- primary or foreign key, 
-    Enclosing Source, 
-    Synonyms
+    - Words, 
+    - SyntacticRole - noun, verb, noun (POS), 
+    - Category, 
+    - DataType --- shape
+    - PK/FK --- primary or foreign key, 
+    - Enclosing Source, 
+    - Synonyms
 
 
 ## Running (tested under Win10)
