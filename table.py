@@ -9,11 +9,11 @@ class TableParser:
 
     
     def read_data():
-        ''' function to read json data
+        ''' function to read json data for key names only
 
         '''
 
     def read_table_data():
-        ''' function to read table json data
+        ''' function to read table json data for column names only
         
         '''

@@ -99,8 +99,6 @@ class PosRecognizer:
 
         return token_id_dict
 
-            
-
     def max_length(self, att_list:list, val_list:list) -> list:
         ''' remove tokens from attributes list if existed in values list
         
@@ -110,8 +108,9 @@ class PosRecognizer:
         return list(filter(lambda a: a not in com_tokens, att_list))
 
 
-    def token_type(self, doc: spacy.tokens.doc.Doc):
+    def token_type(self, token_list: list(spacy.tokens.token.Token)) -> dict:
         ''' define token types based on rules (from tag)
+        :param token_list: the list of tokens that have been removed with stopwords and corrected
         type (POS Tags)                              tag                           SQL
         noun_phrase(NN)                             ---- noun_phrase              ----  table, attribute
         string()/number(CD)                         ---- literal_value            ----  value
@@ -121,24 +120,64 @@ class PosRecognizer:
         adverb(adv)                                 ---- adverb                   ----  attribute   
         adjective(adj)                              ---- adjective                ----  attribute
         preposition(IN)                             ---- preposition 
-        wh_question wh_question reference
+        wh_question                                 wh_question                   reference
         conjunction_phrase(CONJ)                    ---- disjunction_phrase       ---- condition
         comparative_expression(JJR/RBR/KOKOM/cm)    ---- comparative_experssion   ---- condition
         operational_expression()                    ---- operational_expression   ---- condition
 
         '''
         # create a list to save rule-based assumptions
-        token_type_dict = {}
+        token_type_dict = {"Token":[],
+                            "Token Type":[],
+                            "Category":[],
+                            # save synonyms here to avoid loop again
+                            # "Synonyms":[]
+                            }
 
-        for token in tqdm(doc, desc="traversing the tokens"):
-            if token.pos_ == "CD":
-                Table, Attribute
+        for token in tqdm(token_list, desc="traversing the tokens to generate NLQ MetaTable"):
+            # add token itself lemma
+            token_type_dict['Token'].append(token.lemma_)
+
+            if token.pos_ == "NN":
+                token_type_dict["Token Type"].append("Common Noun")
+                token_type_dict["Category"].append(["Table","Attribute"])
+                # token_type_dict["Synonyms"].append()
+            elif token.pos_ == "CD":
+                token_type_dict["Token Type"].append("Number")
+                token_type_dict["Category"].append("Value")
+            elif token.pos_ == "PROPN":
+                token_type_dict["Token Type"].append("Proper Noun")
+                token_type_dict["Category"].append("Value")
+            elif token.pos_ == "verb":
+                token_type_dict["Token Type"].append("Verb")
+                token_type_dict["Category"].append("Relationship")
+            elif token.pos_ == "adv":
+                token_type_dict["Token Type"].append("Adverb")
+                token_type_dict["Category"].append("Attribute")
+            elif token.pos_ == "adj":
+                token_type_dict["Token Type"].append("Adjective")
+                token_type_dict["Category"].append("Attribute")
+            elif token.pos_ == "VBG":
+                token_type_dict["Token Type"].append("Gerund")
+                token_type_dict["Category"].append("Attribute")
+            elif token.pos_ == "IN":
+                token_type_dict["Token Type"].append("Prepositions")
+                token_type_dict["Category"].append("N/A")
+            elif token.pos_ == "CONJ":
+                token_type_dict["Token Type"].append("Conjunction")
+                token_type_dict["Category"].append("N/A")
+            # more test to do on comparative token type
+            elif token.pos_ in ["JJR", "RBR", "KOKOM", "cm"]:
+                token_type_dict["Token Type"].append("Comparative Expression")
+                token_type_dict["Category"].append("Conditional Values")
             else:
-                
-            print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_,
-            token.shape_, token.is_alpha, token.is_stop)
+                print("Waiting to add the type of token {}".format(token))
+                # in order to make sure the length of key is the same
+                token_type_dict["Token Type"].append("N/A")
+                token_type_dict["Category"].append("N/A")
     
-    def 
+        return token_type_dict
+
     
     def escape_words(self, token_list:list) -> list:
         filter_tokens = []
