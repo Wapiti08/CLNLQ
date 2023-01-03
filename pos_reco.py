@@ -31,7 +31,7 @@ class PosRecognizer:
         self.token_id_path = token_id_path
         self.config_file = config_file
 
-    def word_annotate(self, word:str, domains:list):
+    def word_annotate(self, word:str, domains:list) -> list:
         '''
         :param word:
         :param domain:
@@ -40,9 +40,6 @@ class PosRecognizer:
         # find all the synsets under domains
         synsets = token._.wordnet.wordnet_synsets_for_domain(domains)
         return [lemma for s in synsets for lemma in s.lemma_names()]
-
-    def type_check(self,):
-        pass
  
     ## method 1
     # def spell_check(string_list):

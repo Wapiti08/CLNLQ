@@ -5,12 +5,13 @@ class Matcher:
     def __init__(self) -> None:
         pass
 
-    def insert_synonyms(self,):
-
-        if self.simi_score(token1, token2) > 75:
-            # .insert(0, )
-            # .append()
-        else:
+    def insert_synonyms(self, synonyms:list, elements:list):
+        for token in synonyms:
+            if self.simi_word_from_list(token, elements) != "":
+                elements.insert(0, token)
+                # .append()
+            else:
+                continue
             
     
     def simi_score(self, word1:str, word2:str) -> int:
@@ -49,6 +50,8 @@ class Matcher:
             else:
                 token_dict["SQL Slot"][i] = "N/A"
     
-    def sql_tag(self,):
-        pass
+    def sql_tag(self, ):
+        '''
+        
+        '''
              
